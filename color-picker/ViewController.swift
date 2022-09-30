@@ -8,10 +8,18 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    private let colorPickerView: ColorsView = ColorsView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        self.view.addSubview(self.colorPickerView)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        self.colorPickerView.bounds = CGRect(x: 0, y: 0, width: self.view.bounds.width * 0.85, height: self.view.bounds.height / 2)
+        self.colorPickerView.center = CGPoint(x: self.view.bounds.width / 2, y: self.view.bounds.height / 2)
     }
 
 
