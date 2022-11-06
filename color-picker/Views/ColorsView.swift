@@ -44,32 +44,26 @@ class ColorsView: UIView {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.delegate?.handleChanging(colorsView: self, pos: touches.first!.location(in: self))
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.delegate?.handleChanging(colorsView: self, pos: touches.first!.location(in: self))
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.delegate?.handleChanging(colorsView: self, pos: touches.first!.location(in: self))
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
     private func initalize() {
-        self.gestureSettings()
+        self.isUserInteractionEnabled = true
         
         self.setLayers()
-    }
-    
-    private func gestureSettings() {
-        let gestureRecognizer = UILongPressGestureRecognizer()
-        gestureRecognizer.addTarget(self, action: #selector(self.handleTapping(recognizer:)))
-        
-        self.addGestureRecognizer(gestureRecognizer)
-    }
-    
-    @objc private func handleTapping(recognizer: UILongPressGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            self.delegate?.handleChanging(colorsView: self, pos: recognizer.location(in: self))
-        case .changed:
-            self.delegate?.handleChanging(colorsView: self, pos: recognizer.location(in: self))
-        default:
-            break
-        }
     }
 }
 
